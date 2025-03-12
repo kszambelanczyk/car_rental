@@ -7,5 +7,5 @@ defmodule CarRental.TrustScore.Response do
   typedstruct enforce: true do
     field(:id, Ecto.UUID.t())
     field(:score, pos_integer())
-   end
+  end
 end
