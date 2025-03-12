@@ -8,7 +8,12 @@ defmodule CarRental.Application do
   @impl true
   def start(_type, _args) do
     children = [
-      {CarRental.TrustScore.RateLimiter, []}
+      CarRental.Repo,
+      {CarRental.TrustScore.RateLimiter, []},
+      {Oban, Application.fetch_env!(:car_rental, Oban)},
+      {CarRental.TrustScoreWorker, []}
+      # Start the trust score worker
+      # {Task, fn -> CarRental.TrustScoreWorkerStarter.start_worker() end}
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html

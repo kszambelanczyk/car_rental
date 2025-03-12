@@ -1,5 +1,5 @@
 defmodule CarRentalTest do
-  use ExUnit.Case
+  use CarRental.Case
   doctest CarRental
 
   test "greets the world" do
