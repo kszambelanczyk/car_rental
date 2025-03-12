@@ -12,6 +12,7 @@ defmodule CarRental.TrustScoreWorkerTest do
       send(pid, :work)
 
       self = self()
+
       expect(TrustScore, :calculate_score, fn _ ->
         send(self, :ok)
       end)
