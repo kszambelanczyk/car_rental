@@ -29,8 +29,7 @@ defmodule CarRental.TrustScore.RateLimiter do
          %{state | requests: state.requests, last_request_minute: current_minute}}
 
       true ->
-        {:reply, :ok,
-         %{state | requests: state.requests + 1, last_request_minute: current_minute}}
+        {:reply, :ok, %{state | requests: state.requests + 1, last_request_minute: current_minute}}
     end
   end
 

@@ -1,15 +1,14 @@
 defmodule CarRental.TrustScoreWorker do
+  @moduledoc false
   use GenServer
 
-  require Logger
+  alias CarRental.TrustScoreService
 
-  # Client API
+  require Logger
 
   def start_link(args) do
     GenServer.start_link(__MODULE__, args, name: __MODULE__)
   end
-
-  # Server callbacks
 
   @impl true
   def init(state) do
@@ -19,20 +18,18 @@ defmodule CarRental.TrustScoreWorker do
 
   @impl true
   def handle_info(:work, state) do
-    # Do the desired work here
-    # ...
+    TrustScoreService.calculate_trust_scores()
 
-    # Reschedule once more
     schedule_work()
 
     {:noreply, state}
   end
 
-  # @one_week_in_milliseconds 7 * 24 * 60 * 60 * 1000
-  @one_week_in_milliseconds 1000
+  # delay above 10 requests per minute
+  @delay 7 * 1000
 
   defp schedule_work do
-    # Logger.info("Scheduling work in #{@one_week_in_milliseconds} milliseconds")
-    Process.send_after(self(), :work, @one_week_in_milliseconds)
+    Logger.info("Scheduling work in #{@delay} milliseconds")
+    Process.send_after(self(), :work, @delay)
   end
 end

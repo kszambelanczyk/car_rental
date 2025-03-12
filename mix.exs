@@ -28,7 +28,9 @@ defmodule CarRental.MixProject do
     [
       {:typed_struct, "~> 0.3.0"},
       {:faker, "~> 0.18"},
-      {:mimic, "~> 1.11", only: :test}
+      {:mimic, "~> 1.11", only: :test},
+      {:credo, "~> 1.7", only: [:dev, :test], runtime: false},
+      {:styler, "~> 1.2", only: [:dev, :test], runtime: false}
     ]
   end
 end
