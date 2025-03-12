@@ -4,6 +4,7 @@ defmodule CarRentalServiceTest do
 
   alias CarRental.Clients
   alias CarRental.TrustScore
+  alias CarRental.TrustScore.Response
   alias CarRental.TrustScoreService
 
   defp score_helper(%{clients: clients}) do

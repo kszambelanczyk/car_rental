@@ -29,7 +29,6 @@ defmodule CarRental.TrustScoreWorker do
   @delay 7 * 1000
 
   defp schedule_work do
-    Logger.info("Scheduling work in #{@delay} milliseconds")
     Process.send_after(self(), :work, @delay)
   end
 end
