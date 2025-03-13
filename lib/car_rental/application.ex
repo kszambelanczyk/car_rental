@@ -7,10 +7,11 @@ defmodule CarRental.Application do
 
   @impl true
   def start(_type, _args) do
-    children = [
-      CarRental.Repo,
-      {CarRental.TrustScore.RateLimiter, []},
-      {Oban, Application.fetch_env!(:car_rental, Oban)},
+    children =
+      [
+        CarRental.Repo,
+        {CarRental.TrustScore.RateLimiter, []},
+        {Oban, Application.fetch_env!(:car_rental, Oban)}
       ] ++ workers()
 
     # See https://hexdocs.pm/elixir/Supervisor.html
