@@ -13,10 +13,10 @@ defmodule CarRental.TrustScoreService do
   would fetch only the clients that have no score or have the score expired.
   Expiration time would be 1 week, according to the task requirements.
   """
-  @spec calculate_trust_score() :: :ok | {:error, String.t()}
-  def calculate_trust_score() do
+  @spec calculate_trust_scores() :: :ok | {:error, String.t()}
+  def calculate_trust_scores do
     with {:ok, clients} <- Clients.list_clients(),
-         params <- prepare_params(clients),
+         params = prepare_params(clients),
          scores when is_list(scores) <- TrustScore.calculate_score(params) do
       save_scores(scores)
       :ok

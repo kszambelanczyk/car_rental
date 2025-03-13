@@ -32,7 +32,9 @@ defmodule CarRental.MixProject do
       {:ecto_sql, "~> 3.12"},
       {:ecto_sqlite3, "~> 0.18"},
       {:jason, "~> 1.4"},
-      {:mimic, "~> 1.11", only: :test}
+      {:mimic, "~> 1.11", only: :test},
+      {:credo, "~> 1.7", only: [:dev, :test], runtime: false},
+      {:styler, "~> 1.2", only: [:dev, :test], runtime: false}
     ]
   end
 end

@@ -11,14 +11,17 @@ defmodule CarRental.Application do
       CarRental.Repo,
       {CarRental.TrustScore.RateLimiter, []},
       {Oban, Application.fetch_env!(:car_rental, Oban)},
-      {CarRental.TrustScoreWorker, []}
-      # Start the trust score worker
-      # {Task, fn -> CarRental.TrustScoreWorkerStarter.start_worker() end}
-    ]
+      ] ++ workers()
 
     # See https://hexdocs.pm/elixir/Supervisor.html
     # for other strategies and supported options
     opts = [strategy: :one_for_one, name: CarRental.Supervisor]
     Supervisor.start_link(children, opts)
+  end
+
+  if Mix.env() == :test do
+    defp workers, do: []
+  else
+    defp workers, do: [{CarRental.TrustScoreScheduler, []}]
   end
 end

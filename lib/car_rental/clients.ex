@@ -2,10 +2,10 @@ defmodule CarRental.Clients do
   @moduledoc """
   Mock clients DB
   """
-  @clients_count 100
-
   alias CarRental.Clients.Client
   alias CarRental.Clients.Params
+
+  @clients_count 100
 
   @spec list_clients() :: {:ok, [Client.t()]}
   def list_clients do
@@ -21,13 +21,13 @@ defmodule CarRental.Clients do
 
   defp generate_client do
     %Client{
-      id: :crypto.strong_rand_bytes(4) |> :binary.decode_unsigned(),
+      id: 4 |> :crypto.strong_rand_bytes() |> :binary.decode_unsigned(),
       name: Faker.Person.name(),
       email: Faker.Internet.email(),
       phone: Faker.Phone.EnUs.phone(),
       age: Enum.random(20..70),
       license_number: Faker.Code.isbn10(),
-      license_expiry: Faker.Date.forward(365 * 5) |> Date.to_string(),
+      license_expiry: (365 * 5) |> Faker.Date.forward() |> Date.to_string(),
       residential_address: Faker.Address.street_address(),
       credit_card_info: Faker.Code.isbn13(),
       rental_history: generate_rental_history()
@@ -37,9 +37,9 @@ defmodule CarRental.Clients do
   defp generate_rental_history do
     for _ <- 1..Enum.random(1..5) do
       %{
-        car_id: :crypto.strong_rand_bytes(4) |> :binary.decode_unsigned(),
-        rental_date: Faker.Date.backward(365) |> Date.to_string(),
-        return_date: Faker.Date.forward(365) |> Date.to_string()
+        car_id: 4 |> :crypto.strong_rand_bytes() |> :binary.decode_unsigned(),
+        rental_date: 365 |> Faker.Date.backward() |> Date.to_string(),
+        return_date: 365 |> Faker.Date.forward() |> Date.to_string()
       }
     end
   end
