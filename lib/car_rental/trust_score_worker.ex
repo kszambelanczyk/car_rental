@@ -22,8 +22,6 @@ defmodule CarRental.TrustScoreWorker do
   @delay 7
 
   defp calculate_params([_ | _] = params_chunk) do
-    dbg("Calculating scores for #{length(params_chunk)} params")
-
     %{} |> __MODULE__.new(schedule_in: @delay) |> Oban.insert()
 
     case TrustScore.calculate_score(%Params{clients: params_chunk}) do
@@ -31,7 +29,6 @@ defmodule CarRental.TrustScoreWorker do
         save_scores(scores)
 
       error ->
-        dbg("Error calculating scores: #{inspect(error)}")
         refill_params(params_chunk)
         error
     end
